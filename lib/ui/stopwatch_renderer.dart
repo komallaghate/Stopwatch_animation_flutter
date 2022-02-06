@@ -9,9 +9,14 @@ import 'package:stopwatch_flutter/ui/elapsed_time_text.dart';
 class StopWatchRenderer extends StatelessWidget {
   final Duration elapsed;
   final double radius;
-
+  final bool isLapPressed;
+  final Duration lapElapsed;
   const StopWatchRenderer(
-      {Key? key, required this.elapsed, required this.radius})
+      {Key? key,
+      required this.elapsed,
+      required this.radius,
+      required this.isLapPressed,
+      required this.lapElapsed})
       : super(key: key);
 
   Widget build(BuildContext context) {
@@ -57,6 +62,18 @@ class StopWatchRenderer extends StatelessWidget {
               rotationZangle: pi + (2 * pi / 60000) * elapsed.inMilliseconds,
               color: Colors.yellow.withOpacity(0.7)),
         ),
+        isLapPressed == true
+            ? Positioned(
+                left: radius,
+                top: radius,
+                child: ClockHand(
+                    handLength: radius,
+                    handThickness: 2,
+                    rotationZangle:
+                        pi + (2 * pi / 60000) * lapElapsed.inMilliseconds,
+                    color: Colors.blue.withOpacity(0.7)),
+              )
+            : Container(),
         Positioned(
           left: radius,
           top: radius,
